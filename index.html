@@ -411,7 +411,7 @@ z-index: 1
     </section>
 
     <!-- Gallery - IMPROVED -->
-    <section class="card" aria-label="Photos">
+    <section class="card" aria-label="Photos" id="loveLetter">
       <h2 style="margin:6px 0 12px">Our Memories 📸</h2>
       <div class="grid" id="gallery">
         <!-- Replace these with your actual photos and captions -->
@@ -739,10 +739,25 @@ z-index: 1
       ctx.bezierCurveTo(3*k, 0, 0, 4*k, 0, 6*k);
       ctx.closePath(); ctx.fill(); ctx.restore();
     }
-    yesBtn.addEventListener("click", ()=>{
-      launchConfetti();
-      document.getElementById("letter").scrollIntoView({behavior:"smooth", block:"center"});
-    });
+    yesBtn.addEventListener("click", (e) => {
+  e.preventDefault();
+
+  launchConfetti();
+
+  const target = document.getElementById("loveLetter");
+  if (!target) {
+    console.error("Love letter section not found");
+    return;
+  }
+
+  const y =
+    target.getBoundingClientRect().top + window.pageYOffset - 20;
+
+  window.scrollTo({
+    top: y,
+    behavior: "smooth"
+  });
+});
 
     // Map & Distance
     const distanceText = document.getElementById("distanceText");
